@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>url动态引用</title>
+</head>
+<body>
+
+硬编码: <br/>
+<a href="/index/">进入首页</a> <br>
+<a href="/show_news/1/2">进入新闻</a> <br>
+<a href="/show_news2/1/2">进入新闻2</a> <br>
+
+<br/>
+<br/>
+动态生成url: <br/>
+<a href="{% url 'app01:index' %}">进入首页</a> <br>
+<a href="{% url 'app01:show_news' 1 2 %}">进入新闻</a> <br>
+<a href="{% url 'app01:show_news2' category=1 page_no=2 %}">进入新闻2</a> <br>
+
+
+</body>
+</html>

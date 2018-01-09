@@ -1,0 +1,13 @@
+
+{% extends 'app01/parent.html' %}
+
+{% block title %}子模板{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+    <h3>子模板的头部</h3>
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

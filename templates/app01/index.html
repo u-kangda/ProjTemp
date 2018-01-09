@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+
+<!-- 加载自定义过滤器 -->
+{% load myfilters %}
+
+<body>
+
+<h1>首页</h1>
+
+<h2>模板变量</h2>
+模板变量不能以下划线开头: {{ key01 }}  <br/>
+
+字典: {{ my_dict.key01 }} <br/>
+对象: {{ my_obj.name }} <br/>
+列表: {{ my_list.1 }} <br/>
+
+<h2>模板标签</h2>
+<h3>for--遍历列表</h3>
+
+{% for element in my_list reversed %}
+    {{ element }} <br/>
+{% empty %}
+    模板变量不存在
+{% endfor %}
+
+<h3>for--遍历字典</h3>
+{% for key, value in my_dict.items%}
+    {{ key }}----{{ value }} <br/>
+{% endfor %}
+
+
+<h3>for--forloop.counter </h3>
+{% for element in my_list %}
+   {{ forloop.counter }} ---- {{ element }} <br/>
+{% endfor %}
+
+<h3>if标签</h3>
+{% for element in my_list%}
+    {% if forloop.counter == 1 %}
+        1  <br/>
+    {% elif forloop.counter == 2 %}
+        2  <br/>
+    {% else %}
+        3  <br/>
+    {% endif %}
+{% endfor %}
+
+<h3>逻辑运算</h3>
+
+{% if key01 > 0 and key01 < 10 %}
+    0 < {{ key01 }} < 10
+{% else %}
+    条件不满足
+{% endif %}
+
+<h2>过滤器</h2>
+<h3>length</h3>
+列表的长度: {{ my_list|length }} <br/>
+字典的长度: {{ my_dict|length }} <br/>
+字符串的长度: {{ my_obj.name|length }} <br/>
+
+<h3>default</h3>
+{{ key01|default:100 }} <br/>
+{{ key01aa|default:100 }} <br/>
+
+<h3>date</h3>
+默认格式: {{ my_date }} <br/>
+自定义输出的格式(Y-m-d H:i:s): {{ my_date|date:'Y-m-d H:i:s' }} <br/>
+
+
+<h3>自定义过滤器</h3>
+{% for element in my_list%}
+    {% if forloop.counter|odd %}
+       奇数 <br/>
+    {% else %}
+        偶数 <br/>
+    {% endif %}
+{% endfor %}
+<br/>
+<br/>
+
+{% for element in my_list%}
+    {{ forloop.counter0|mod:3 }}
+{% endfor %}
+
+<h3>模板注释</h3>
+
+模板注释<br/>
+{% comment %}
+模板注释<br/>
+模板注释<br/>
+{% endcomment %}
+
+<h2>html转义</h2>
+通过render函数(或者是RequestContext对象)设置的数据,默认字符会转义:  {{ my_html }} <br/>
+使用safe过滤器防止转义: {{ my_html|safe }} <br/>
+使用autoescape防止转义: <br/>
+{% autoescape off %}
+    {{ my_html }} {{ my_html }} {{ my_html }} {{ my_html }}
+{% endautoescape %}
+
+<br/>
+硬编码不会转义: {{ aa|default:'<font color="red">红色</font>' }} <br/>
+手动转义: {{ aa|default:'&lt;font color=&quot;red&quot;&gt;红色&lt;/font&gt;' }} <br/>
+
+
+
+
+
+</body>
+</html>
